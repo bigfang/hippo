@@ -14,12 +14,14 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../priv/static'),
-    filename: 'js/[name].js'
+    filename: 'js/[name].js',
+    publicPath: "http://localhost:4000/"
   },
   resolve: {
     modules: ['node_modules', __dirname],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
+      '@': path.resolve(__dirname, 'js'),
       'phoenix': path.resolve(__dirname, '../deps/phoenix/priv/static/phoenix.js'),
       'phoenix_html': path.resolve(__dirname, '../deps/phoenix_html/priv/static/phoenix_html.js')
     },
@@ -36,11 +38,9 @@ module.exports = {
         test: /\.js$/,
         include: [vuetifyPath],
         exclude: [/node_modules/, path.resolve(__dirname, '../deps/')],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['es2015']
-          }
+        loader: 'babel-loader',
+        options: {
+          presets: ['es2015']
         }
       }, {
         test: /\.vue$/,
@@ -52,15 +52,13 @@ module.exports = {
           include: [vuetifyPath]
         }
       }, {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 8192
-          }
-        }]
-      },
+        loader: 'url-loader',
+        options: {
+          limit: 8192
+        }
+      }
     ]
   },
   plugins: [
