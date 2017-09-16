@@ -10,18 +10,16 @@ module.exports = {
   devtool: 'source-map',
   stats: { children: false },
   entry: {
-    app: ['css/app.css', 'js/app.js'],
+    app: ['./css/app.css', './js/app.js'],
   },
   output: {
     path: path.resolve(__dirname, '../priv/static'),
     filename: 'js/[name].js',
-    publicPath: "http://localhost:4000/"
   },
   resolve: {
-    modules: ['node_modules', __dirname],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': path.resolve(__dirname, 'js'),
+      '@': path.resolve(__dirname, './js'),
       'phoenix': path.resolve(__dirname, '../deps/phoenix/priv/static/phoenix.js'),
       'phoenix_html': path.resolve(__dirname, '../deps/phoenix_html/priv/static/phoenix_html.js')
     },
@@ -36,7 +34,7 @@ module.exports = {
         })
       }, {
         test: /\.js$/,
-        include: [vuetifyPath],
+        include: vuetifyPath,
         exclude: [/node_modules/, path.resolve(__dirname, '../deps/')],
         loader: 'babel-loader',
         options: {
@@ -49,7 +47,7 @@ module.exports = {
           extractCSS: true,
           loaders: {
           },
-          include: [vuetifyPath]
+          include: vuetifyPath
         }
       }, {
         test: /\.(png|jpg|gif|svg)$/,
